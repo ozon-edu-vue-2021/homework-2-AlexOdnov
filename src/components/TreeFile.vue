@@ -1,5 +1,7 @@
 <template>
-  <button class="item file" type="button" @click="select">{{ text }}</button>
+  <button class="item file" type="button" @click="select" ref="item">
+    {{ text }}
+  </button>
 </template>
 
 <script>

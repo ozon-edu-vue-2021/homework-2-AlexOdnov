@@ -5,6 +5,7 @@
       :class="{ 'directory-open': isOpen }"
       type="button"
       @click="open"
+      ref="dir"
     >
       {{ dir.name }}
     </button>
@@ -41,6 +42,19 @@ export default {
     onSelect(path) {
       this.$emit('select', `${this.dir.name}/${path}`);
     },
+  },
+  inject: ['linkPath'],
+  mounted() {
+    if (this.linkPath[0] === this.dir.name) {
+      this.isOpen = true;
+      this.$refs.dir.focus();
+      window.scrollBy(
+        0,
+        this.$refs.dir.getBoundingClientRect().top -
+          document.documentElement.clientHeight / 2
+      );
+      this.linkPath.shift();
+    }
   },
 };
 </script>
