@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       isOpen: false,
+      isActive: false,
     };
   },
   methods: {
@@ -44,16 +45,21 @@ export default {
     },
   },
   inject: ['linkPath'],
-  mounted() {
+  created() {
     if (this.linkPath[0] === this.dir.name) {
       this.isOpen = true;
+      this.linkPath.shift();
+      this.isActive = !this.linkPath.length ? true : false;
+    }
+  },
+  mounted() {
+    if (this.isActive) {
       this.$refs.dir.focus();
       window.scrollBy(
         0,
         this.$refs.dir.getBoundingClientRect().top -
           document.documentElement.clientHeight / 2
       );
-      this.linkPath.shift();
     }
   },
 };
